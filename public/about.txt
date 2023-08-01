@@ -1,6 +1,6 @@
 This favicon was generated using the following font:
 
-- Font Title: Roboto
-- Font Author: Copyright 2011 Google Inc. All Rights Reserved.
-- Font Source: http://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlvAx05IsDqlA.ttf
-- Font License: Apache License, version 2.0 (http://www.apache.org/licenses/LICENSE-2.0.html))
+- Font Title: Koulen
+- Font Author: Copyright 2019 The Koulen Project Authors (https://github.com/danhhong/Koulen)
+- Font Source: http://fonts.gstatic.com/s/koulen/v25/AMOQz46as3KIBPeWgnA9kuYMUg.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
