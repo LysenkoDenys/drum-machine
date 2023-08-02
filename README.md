@@ -1,6 +1,6 @@
 # drum-machine
 
-##The application is a https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-drum-machine project that allows you make some sound (drums and piano):
+## The application is a https://www.freecodecamp.org/learn/front-end-development-libraries/front-end-development-libraries-projects/build-a-drum-machine project that allows you make some sound (drums and piano):
 
 <p>Sample:</p>
 
