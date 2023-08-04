@@ -9,7 +9,7 @@ const VolumeSlider = (props) => {
       type="range"
       defaultValue="0.5"
       onChange={props.volumeHandler}
-      className="w-full mx-0 my-[12.5px]"
+      className="w-11/12"
     />
   );
 };

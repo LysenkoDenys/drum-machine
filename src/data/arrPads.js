@@ -1,0 +1,66 @@
+const arrPads = [
+  {
+    keyName: "q",
+    id: 0,
+    sound: "Heater 1",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3",
+  },
+  {
+    keyName: "w",
+    id: 1,
+    sound: "Heater 2",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3",
+  },
+  {
+    keyName: "e",
+    id: 2,
+    sound: "Heater 3",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3",
+  },
+  {
+    keyName: "a",
+    id: 3,
+    sound: "Heater 4",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3",
+  },
+  {
+    keyName: "s",
+    id: 4,
+    sound: "Clap",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3",
+  },
+  {
+    keyName: "d",
+    id: 5,
+    sound: "Open-HH",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3",
+  },
+  {
+    keyName: "z",
+    id: 6,
+    sound: "Kick-n'-Hat",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3",
+  },
+  {
+    keyName: "x",
+    id: 7,
+    sound: "Kick",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3",
+  },
+  {
+    keyName: "c",
+    id: 8,
+    sound: "Closed-HH",
+    src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+    srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3",
+  },
+];
+export default arrPads;
