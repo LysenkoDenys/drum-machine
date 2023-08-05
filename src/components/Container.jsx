@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFreeCodeCamp } from "react-icons/fa";
 import Pad from "./Pad";
 import Control from "./Control";
@@ -6,13 +6,34 @@ import VolumeSlider from "./VolumeSlider";
 import arrPads from "../data/arrPads";
 
 const Container = () => {
-  const [value, setValue] = useState(0.5); //hardcoding
+  const [valume, setValume] = useState(0.5); //hardcoding
   const [display, setDisplay] = useState("");
-  const volumeHandler = () => {
-    setValue(0.7); //hardcoding
+  const [power, setPower] = useState(true);
+  const [bank, setBank] = useState(false);
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress, true);
+  }, []);
+
+  const handleKeyPress = (event) => {
+    const val = arrPads.find(
+      (valueOfArr) => valueOfArr.keyName === event.code.replace("Key", "")
+    );
+    val && playAudio(val.src);
   };
+
+  const volumeHandler = () => {
+    setValume(0.7); //hardcoding
+  };
+
   const displayHandler = () => {
     setDisplay("sound effect"); //hardcoding
+  };
+
+  const playAudio = (audio) => {
+    const audioToPlay = new Audio(audio);
+    audioToPlay.play();
+    const dis = arrPads.find((valueOfArr) => valueOfArr.src === audio);
+    dis && setDisplay(dis.sound);
   };
 
   return (
@@ -28,7 +49,7 @@ const Container = () => {
           {arrPads.map((pad) => {
             return (
               <Pad
-                onClick={() => {}}
+                onClick={playAudio}
                 pad={pad.keyName}
                 id={pad.sound}
                 src={pad.src}
