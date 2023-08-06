@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const VolumeSlider = (props) => {
+  const [volume, setVolume] = useState(20);
+
+  // useEffect(() => {
+  //   if (audioRef) {
+  //     audioRef.current.volume = volume / 100;
+  //   }
+  // }, [volume, audioRef]);
+
+  const volumeHandler = (event) => {
+    setVolume(event.target.value);
+  };
+
   return (
     <input
-      max="1"
-      min="0"
-      step="0.01"
       type="range"
-      defaultValue="0.5"
-      onChange={props.volumeHandler}
-      className="w-11/12"
+      min={0}
+      max={100}
+      step={1}
+      value={volume}
+      onChange={volumeHandler}
+      className="w-11/12 accent-[#50644d] my-2"
     />
   );
 };
