@@ -12,7 +12,7 @@ const Pad = (props) => {
         className="clip"
         id={props.keyName}
         src={props.src}
-        ref={props.audioRef}
+        volume={100}
       ></audio>
       {props.pad}
     </div>
