@@ -28,7 +28,11 @@ const Container = () => {
       const val = arrPads.find(
         (valueOfArr) => valueOfArr.keyName === event.code.replace("Key", "")
       );
-      power && val && !bank ? playAudio(val.src) : playAudio(val.srcAlt);
+      power && val && !bank
+        ? playAudio(val.src)
+        : power && val && bank
+        ? playAudio(val.srcAlt)
+        : console.log("wrong key"); //pass this log to the display
     };
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
@@ -65,7 +69,8 @@ const Container = () => {
                   pad={pad.keyName}
                   id={pad.sound}
                   src={pad.src}
-                  // srcAlt={pad.srcAlt}
+                  srcAlt={pad.srcAlt}
+                  bank={bank}
                   key={pad.id}
                 />
               );
@@ -89,7 +94,12 @@ const Container = () => {
               volume={volume}
               setVolume={setVolume}
             />
-            <Switcher label="Bank" bank={bank} setBank={setBank} />
+            <Switcher
+              label="Bank"
+              bank={bank}
+              setBank={setBank}
+              power={power}
+            />
           </div>
         </div>
       </div>

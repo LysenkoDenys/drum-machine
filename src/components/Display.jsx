@@ -11,7 +11,9 @@ const Display = (props) => {
       ) : props.power && props.volume ? (
         <p id="volume-par">{"Volume: " + props.volume}</p>
       ) : (
-        <p className="text-[rgb(138,138,138)] text-[large]">press any key</p>
+        <p className="text-[rgb(138,138,138)] text-[large]">
+          Turn on the Power
+        </p>
       )}
     </div>
   );
