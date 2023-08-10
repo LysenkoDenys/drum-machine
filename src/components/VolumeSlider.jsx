@@ -9,6 +9,11 @@ const VolumeSlider = (props) => {
 
   const volumeHandler = (event) => {
     props.power && props.setVolume(event.target.value);
+
+    // setTimeout(() => {
+    //   const box = document.getElementById("volume-par");
+    //   box.style.visibility = "hidden";
+    // }, 1000);
   };
 
   return (

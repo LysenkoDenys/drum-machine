@@ -66,7 +66,7 @@ const arrPads = [
   {
     keyName: "C",
     id: 8,
-    sound: "Closed-HH",
+    sound: "Closed HH",
     soundAlt: "Snare",
     src: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
     srcAlt: "https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3",

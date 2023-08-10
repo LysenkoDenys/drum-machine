@@ -9,7 +9,7 @@ const Display = (props) => {
       {props.power && props.display ? (
         <p>{props.display}</p>
       ) : props.power && props.volume ? (
-        <p>{"Volume: " + props.volume}</p>
+        <p id="volume-par">{"Volume: " + props.volume}</p>
       ) : (
         <p className="text-[rgb(138,138,138)] text-[large]">press any key</p>
       )}

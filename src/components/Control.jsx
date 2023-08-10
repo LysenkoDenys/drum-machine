@@ -4,7 +4,7 @@ const Control = (props) => {
   //https://larainfo.com/blogs/toggle-switch-in-react-js-with-tailwind-css-example
   return (
     <div className="my-1 font-bold flex flex-col items-center">
-      <label htmlFor="control">{props.label}</label>
+      <label>{props.label}</label>
 
       <Switch
         checked={props.power}

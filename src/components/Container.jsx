@@ -14,26 +14,33 @@ const Container = () => {
   const [volume, setVolume] = useState(20);
   const [bank, setBank] = useState(false);
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyPress, true);
-  });
   const audioRef = useRef();
+  // srcAlt;
+  // soundAlt;
 
-  const handleKeyPress = (event) => {
-    const val = arrPads.find(
-      (valueOfArr) => valueOfArr.keyName === event.code.replace("Key", "")
-    );
-    if (power) {
-      console.log("wow!"); //
-      val && playAudio(val.src);
-    }
-  };
+  //this helps switch addEventListener then power is off:
+  useEffect(() => {
+    setPower(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      const val = arrPads.find(
+        (valueOfArr) => valueOfArr.keyName === event.code.replace("Key", "")
+      );
+      power && val && !bank ? playAudio(val.src) : playAudio(val.srcAlt);
+    };
+    document.addEventListener("keydown", handleKeyPress);
+    return () => document.removeEventListener("keydown", handleKeyPress);
+  });
 
   const playAudio = (audio) => {
     const audioToPlay = new Audio(audio);
     power && audioToPlay.play();
+
     const dis = arrPads.find((valueOfArr) => valueOfArr.src === audio);
     power && dis ? setDisplay(dis.sound) : setDisplay("");
+    // power && dis && !bank ? setDisplay(dis.sound) : setDisplay(dis.soundAlt);
   };
 
   // const handleDisplay = () => {
@@ -58,6 +65,7 @@ const Container = () => {
                   pad={pad.keyName}
                   id={pad.sound}
                   src={pad.src}
+                  // srcAlt={pad.srcAlt}
                   key={pad.id}
                 />
               );
