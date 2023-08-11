@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFreeCodeCamp } from "react-icons/fa";
 import Pad from "./Pad";
 import Control from "./Control";
 import Switcher from "./Switcher";
-import VolumeSlider from "./VolumeSlider";
+// import VolumeSlider from "./VolumeSlider";
 import arrPads from "../data/arrPads";
 import Display from "./Display";
 import AudioContext from "../context/AudioContext";
@@ -11,12 +11,8 @@ import AudioContext from "../context/AudioContext";
 const Container = () => {
   const [power, setPower] = useState(true);
   const [display, setDisplay] = useState("");
-  const [volume, setVolume] = useState(20);
+  // const [volume, setVolume] = useState(20);
   const [bank, setBank] = useState(false);
-
-  const audioRef = useRef();
-  // srcAlt;
-  // soundAlt;
 
   //this helps switch addEventListener then power is off:
   useEffect(() => {
@@ -72,6 +68,8 @@ const Container = () => {
                   srcAlt={pad.srcAlt}
                   bank={bank}
                   key={pad.id}
+                  // volume={volume}
+                  // setVolume={setVolume}
                 />
               );
             })}
@@ -82,18 +80,13 @@ const Container = () => {
           >
             <FaFreeCodeCamp className="absolute right-2.5 top-[5px]" />
             <Control label="Power" power={power} setPower={setPower} />
-            <Display
-              display={display}
-              power={power}
-              volume={volume}
-              setVolume={setVolume}
-            />
-            <VolumeSlider
+            <Display display={display} power={power} />
+            {/* <VolumeSlider
               audioRef={audioRef}
               power={power}
               volume={volume}
               setVolume={setVolume}
-            />
+            /> */}
             <Switcher
               label="Bank"
               bank={bank}
