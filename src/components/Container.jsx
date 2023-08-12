@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaFreeCodeCamp } from "react-icons/fa";
 import Pad from "./Pad";
 import Control from "./Control";
 import Switcher from "./Switcher";
-// import VolumeSlider from "./VolumeSlider";
+import VolumeSlider from "./VolumeSlider";
 import arrPads from "../data/arrPads";
 import Display from "./Display";
 import AudioContext from "../context/AudioContext";
@@ -11,8 +11,23 @@ import AudioContext from "../context/AudioContext";
 const Container = () => {
   const [power, setPower] = useState(true);
   const [display, setDisplay] = useState("");
-  // const [volume, setVolume] = useState(20);
+  const [volume, setVolume] = useState(0.2);
   const [bank, setBank] = useState(false);
+  const audioRef = useRef(null);
+
+  const volumeHandler = (event) => {
+    const newVolume = parseFloat(event.target.value);
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+
+    // props.power && setVolume(parseFloat(event.target.value));
+    // audioRef.current.volume = parseFloat(event.target.value);
+
+    // setTimeout(() => {
+    //   const box = document.getElementById("volume-par");
+    //   box.style.visibility = "hidden";
+    // }, 1000);
+  };
 
   //this helps switch addEventListener then power is off:
   useEffect(() => {
@@ -29,6 +44,8 @@ const Container = () => {
         : power && val && bank
         ? playAudio(val.srcAlt)
         : console.log("wrong key"); //pass this log to the display
+      const pusher = document.getElementById(val.sound);
+      pusher.style.color = "red";
     };
     document.addEventListener("keydown", handleKeyPress);
     return () => document.removeEventListener("keydown", handleKeyPress);
@@ -37,6 +54,7 @@ const Container = () => {
   const playAudio = (audio) => {
     const audioToPlay = new Audio(audio);
     power && audioToPlay.play();
+    audioToPlay.volume = volume;
 
     const dis = arrPads.find((valueOfArr) => valueOfArr.src === audio);
     power && dis ? setDisplay(dis.sound) : setDisplay("");
@@ -68,8 +86,7 @@ const Container = () => {
                   srcAlt={pad.srcAlt}
                   bank={bank}
                   key={pad.id}
-                  // volume={volume}
-                  // setVolume={setVolume}
+                  audioRef={audioRef}
                 />
               );
             })}
@@ -81,12 +98,7 @@ const Container = () => {
             <FaFreeCodeCamp className="absolute right-2.5 top-[5px]" />
             <Control label="Power" power={power} setPower={setPower} />
             <Display display={display} power={power} />
-            {/* <VolumeSlider
-              audioRef={audioRef}
-              power={power}
-              volume={volume}
-              setVolume={setVolume}
-            /> */}
+            <VolumeSlider volumeHandler={volumeHandler} volume={volume} />
             <Switcher
               label="Bank"
               bank={bank}
