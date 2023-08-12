@@ -44,11 +44,23 @@ const Container = () => {
         : power && val && bank
         ? playAudio(val.srcAlt)
         : console.log("wrong key"); //pass this log to the display
-      const pusher = document.getElementById(val.sound);
-      pusher.style.color = "red";
+
+      // push pad effect---------------------
+      if (power && val && !bank) {
+        const pusher = document.getElementById(val.sound);
+        pusher.style.color = "grey";
+        pusher.style.backgroundColor = "#50644d";
+        pusher.style.boxShadow = "1px 0.5px 1px 0.5px #000";
+        setTimeout(() => {
+          pusher.style.color = "white";
+          pusher.style.backgroundColor = "#808080";
+          pusher.style.boxShadow = "black 3px 3px 5px";
+        }, 50);
+      }
+      // push pad effect---------------------
     };
-    document.addEventListener("keydown", handleKeyPress);
-    return () => document.removeEventListener("keydown", handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   });
 
   const playAudio = (audio) => {
