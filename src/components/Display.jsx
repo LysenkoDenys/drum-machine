@@ -1,6 +1,17 @@
 import React from "react";
 
 const Display = (props) => {
+  // function displaySow() {
+  //   if (props.power) {
+  //     return "";
+  //   } else if (props.power && props.volume) {
+  //     return `<p id="volume-par">Volume: ${props.volume * 100}</p>`;
+  //   } else if (props.power && props.display) {
+  //     return `<p>${props.display}</p>`;
+  //   } else if (props.power && props.bank) {
+  //     return `<p>${props.bank}</p>`;
+  //   }
+  // }
   return (
     <div
       id="display"
@@ -9,7 +20,7 @@ const Display = (props) => {
       {props.power && props.display ? (
         <p>{props.display}</p>
       ) : props.power && props.volume ? (
-        <p id="volume-par">{"Volume: " + props.volume}</p>
+        <p id="volume-par">{"Volume: " + props.volume * 100}</p>
       ) : (
         <p className="text-[rgb(138,138,138)] text-[large]">
           Turn the Power on

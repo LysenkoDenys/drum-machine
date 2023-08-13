@@ -11,13 +11,17 @@ import AudioContext from "../context/AudioContext";
 const Container = () => {
   const [power, setPower] = useState(true);
   const [display, setDisplay] = useState("");
-  const [volume, setVolume] = useState(0.2);
+  const [volume, setVolume] = useState(0.1);
   const [bank, setBank] = useState(false);
   const audioRef = useRef(null);
 
+  const bankHandler = () => {
+    setBank(true);
+  };
+
   const volumeHandler = (event) => {
     const newVolume = parseFloat(event.target.value);
-    setVolume(newVolume);
+    power && setVolume(newVolume);
     audioRef.current.volume = newVolume;
 
     // props.power && setVolume(parseFloat(event.target.value));
@@ -39,22 +43,31 @@ const Container = () => {
       const val = arrPads.find(
         (valueOfArr) => valueOfArr.keyName === event.code.replace("Key", "")
       );
-      power && val && !bank
+      val && !bank
         ? playAudio(val.src)
         : power && val && bank
         ? playAudio(val.srcAlt)
         : console.log("wrong key"); //pass this log to the display
 
       // push pad effect---------------------
-      if (power && val && !bank) {
+      if (val) {
         const pusher = document.getElementById(val.sound);
-        pusher.style.color = "grey";
-        pusher.style.backgroundColor = "#50644d";
-        pusher.style.boxShadow = "1px 0.5px 1px 0.5px #000";
+        // pusher.style.color = "grey";
+        // pusher.style.backgroundColor = "#50644d";
+        // pusher.style.boxShadow = "1px 0.5px 1px 0.5px #000";
+        const stylesIn = {
+          color: "grey",
+          backgroundColor: "#50644d",
+          boxShadow: "1px 0.5px 1px 0.5px #000",
+        };
+        const stylesOut = {
+          color: "white",
+          backgroundColor: "#808080",
+          boxShadow: "black 3px 3px 5px",
+        };
+        Object.assign(pusher.style, stylesIn);
         setTimeout(() => {
-          pusher.style.color = "white";
-          pusher.style.backgroundColor = "#808080";
-          pusher.style.boxShadow = "black 3px 3px 5px";
+          Object.assign(pusher.style, stylesOut);
         }, 50);
       }
       // push pad effect---------------------
@@ -69,13 +82,13 @@ const Container = () => {
     audioToPlay.volume = volume;
 
     const dis = arrPads.find((valueOfArr) => valueOfArr.src === audio);
-    power && dis ? setDisplay(dis.sound) : setDisplay("");
-    // power && dis && !bank ? setDisplay(dis.sound) : setDisplay(dis.soundAlt);
+    const disAlt = arrPads.find((valueOfArr) => valueOfArr.srcAlt === audio);
+    dis && !bank
+      ? setDisplay(dis.sound)
+      : disAlt && bank
+      ? setDisplay(disAlt.soundAlt)
+      : setDisplay("");
   };
-
-  // const handleDisplay = () => {
-  //   setDisplay("");
-  // };
 
   return (
     <AudioContext.Provider value={(display, setDisplay)}>
@@ -109,13 +122,13 @@ const Container = () => {
           >
             <FaFreeCodeCamp className="absolute right-2.5 top-[5px]" />
             <Control label="Power" power={power} setPower={setPower} />
-            <Display display={display} power={power} />
+            <Display display={display} power={power} volume={volume} />
             <VolumeSlider volumeHandler={volumeHandler} volume={volume} />
             <Switcher
               label="Bank"
               bank={bank}
-              setBank={setBank}
               power={power}
+              setBank={setBank}
             />
           </div>
         </div>
