@@ -4,9 +4,8 @@ import Pad from "./Pad";
 import Control from "./Control";
 import Switcher from "./Switcher";
 import VolumeSlider from "./VolumeSlider";
-import arrPads from "../data/arrPads";
 import Display from "./Display";
-import AudioContext from "../context/AudioContext";
+import arrPads from "../data/arrPads";
 
 const Container = () => {
   const [power, setPower] = useState(true);
@@ -15,8 +14,14 @@ const Container = () => {
   const [bank, setBank] = useState(false);
   const audioRef = useRef(null);
 
+  const powerHandler = () => {
+    setPower(!power);
+    power ? setDisplay("Turn the Power on") : setDisplay("Press the buttons");
+  };
+
   const bankHandler = () => {
-    setBank(true);
+    setBank(!bank);
+    bank ? setDisplay("Heater Kit") : setDisplay("Smooth Piano Kit");
   };
 
   const volumeHandler = (event) => {
@@ -24,18 +29,16 @@ const Container = () => {
     power && setVolume(newVolume);
     audioRef.current.volume = newVolume;
 
-    // props.power && setVolume(parseFloat(event.target.value));
-    // audioRef.current.volume = parseFloat(event.target.value);
-
-    // setTimeout(() => {
-    //   const box = document.getElementById("volume-par");
-    //   box.style.visibility = "hidden";
-    // }, 1000);
+    setDisplay(`Volume: ${newVolume * 100}`);
+    setTimeout(() => {
+      setDisplay("");
+    }, 1000);
   };
 
   //this helps switch addEventListener then power is off:
   useEffect(() => {
     setPower(true);
+    setDisplay("");
   }, []);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const Container = () => {
         ? playAudio(val.src)
         : power && val && bank
         ? playAudio(val.srcAlt)
-        : console.log("wrong key"); //pass this log to the display
+        : setDisplay("Unsupported key");
 
       // push pad effect---------------------
       if (val) {
@@ -91,49 +94,47 @@ const Container = () => {
   };
 
   return (
-    <AudioContext.Provider value={(display, setDisplay)}>
-      <div className="flex justify-center items-center h-screen ">
+    <div className="flex justify-center items-center h-screen ">
+      <div
+        id="drum-machine"
+        className="flex flex-col-reverse md:flex md:flex-row border-[5px] border-[rgb(165,160,160)] w-[350px] md:w-[700px] md:h-[300px] bg-gray-500 shadow-[black_3px_3px_5px] rounded-[5px]"
+      >
         <div
-          id="drum-machine"
-          className="flex flex-col-reverse md:flex md:flex-row border-[5px] border-[rgb(165,160,160)] w-[350px] md:w-[700px] md:h-[300px] bg-gray-500 shadow-[black_3px_3px_5px] rounded-[5px]"
+          id="pad-container"
+          className="md:w-6/12 flex flex-wrap justify-around p-3 items-center"
         >
-          <div
-            id="pad-container"
-            className="md:w-6/12 flex flex-wrap justify-around p-3 items-center"
-          >
-            {arrPads.map((pad) => {
-              return (
-                <Pad
-                  onClick={playAudio}
-                  pad={pad.keyName}
-                  id={pad.sound}
-                  src={pad.src}
-                  srcAlt={pad.srcAlt}
-                  bank={bank}
-                  key={pad.id}
-                  audioRef={audioRef}
-                />
-              );
-            })}
-          </div>
-          <div
-            id="control-container"
-            className="flex flex-col relative md:w-6/12 p-3 justify-between items-center"
-          >
-            <FaFreeCodeCamp className="absolute right-2.5 top-[5px]" />
-            <Control label="Power" power={power} setPower={setPower} />
-            <Display display={display} power={power} volume={volume} />
-            <VolumeSlider volumeHandler={volumeHandler} volume={volume} />
-            <Switcher
-              label="Bank"
-              bank={bank}
-              power={power}
-              setBank={setBank}
-            />
-          </div>
+          {arrPads.map((pad) => {
+            return (
+              <Pad
+                onClick={playAudio}
+                pad={pad.keyName}
+                id={pad.sound}
+                src={pad.src}
+                srcAlt={pad.srcAlt}
+                bank={bank}
+                key={pad.id}
+                audioRef={audioRef}
+              />
+            );
+          })}
+        </div>
+        <div
+          id="control-container"
+          className="flex flex-col relative md:w-6/12 p-3 justify-between items-center"
+        >
+          <FaFreeCodeCamp className="absolute right-2.5 top-[5px]" />
+          <Control label="Power" power={power} setPower={powerHandler} />
+          <Display display={display} />
+          <VolumeSlider volume={volume} volumeHandler={volumeHandler} />
+          <Switcher
+            label="Bank"
+            bank={bank}
+            power={power}
+            setBank={bankHandler}
+          />
         </div>
       </div>
-    </AudioContext.Provider>
+    </div>
   );
 };
 
