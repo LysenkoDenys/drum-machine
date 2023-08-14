@@ -29,7 +29,7 @@ const Container = () => {
     power && setVolume(newVolume);
     audioRef.current.volume = newVolume;
 
-    setDisplay(`Volume: ${newVolume * 100}`);
+    power && setDisplay(`Volume: ${newVolume * 100}`);
     setTimeout(() => {
       setDisplay("");
     }, 1000);
@@ -86,7 +86,7 @@ const Container = () => {
 
     const dis = arrPads.find((valueOfArr) => valueOfArr.src === audio);
     const disAlt = arrPads.find((valueOfArr) => valueOfArr.srcAlt === audio);
-    dis && !bank
+    power && dis && !bank
       ? setDisplay(dis.sound)
       : disAlt && bank
       ? setDisplay(disAlt.soundAlt)
