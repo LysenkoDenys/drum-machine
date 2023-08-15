@@ -29,7 +29,7 @@ const Container = () => {
     power && setVolume(newVolume);
     audioRef.current.volume = newVolume;
 
-    power && setDisplay(`Volume: ${newVolume * 100}`);
+    power && setDisplay(`Volume: ${Math.round(newVolume * 100)}`);
     setTimeout(() => {
       setDisplay("");
     }, 1000);
